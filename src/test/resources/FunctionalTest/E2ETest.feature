@@ -7,8 +7,8 @@ Feature: TripSearch Action
     Then Message displayed Login Successfully
     Examples:
       | triptype   |
-      |  Multicity |
+      |   OneWay  |
       |  RoundTrip |
-      |  OneWay    |
+      |  Multicity |
 
 
