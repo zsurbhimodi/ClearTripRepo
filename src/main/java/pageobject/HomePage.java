@@ -122,6 +122,8 @@ public class HomePage {
         SelectDropdown(map.get("Class_of_Travel"),"Class");
         click_Searchbutton();
 
+        System.out.println("Verifying the git commit changes");
+
     }
 
     public void enter_ReturnOn(WebElement element){
