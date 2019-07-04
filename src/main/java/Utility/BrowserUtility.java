@@ -9,12 +9,17 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 public class BrowserUtility {
 
-
+    static String  path=System.getProperty("user.dir");
     public static WebDriver OpenBrowser(WebDriver driver, String browserName, String url) throws InterruptedException {
 
         if(browserName.equals("Chrome"))
         {
-            System.setProperty("webdriver.chrome.driver", "C:\\Users\\Surbhi_Modi\\Downloads\\chromedriver_win32\\chromedriver.exe");
+
+            //C:\Users\Surbhi_Modi\Downloads\cucumberSeleniumFramework-master\TestClearTrip\src\test\resources\drivers\chromedriver.exe
+          //  System.setProperty("webdriver.chrome.driver", "C:\\Users\\Surbhi_Modi\\Downloads\\chromedriver_win32\\chromedriver.exe");
+
+            System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir")+ProjectConstant.CHROME_DRIVER);
+
             driver=new ChromeDriver();
             driver.manage().window().maximize();
             driver.get(url);
@@ -23,7 +28,11 @@ public class BrowserUtility {
         }else
         if(browserName.equals("IE"))
         {
-            System.setProperty("webdriver.ie.driver", "C:\\Users\\Surbhi_Modi\\Downloads\\IEDriverServer_x64_3.14.0\\IEDriverServer.exe");
+
+            //C:\Users\Surbhi_Modi\Downloads\cucumberSeleniumFramework-master\TestClearTrip\src\test\resources\drivers\IEDriverServer.exe
+
+            System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir")+ProjectConstant.IE_DRIVER);
+           // System.setProperty("webdriver.ie.driver", "C:\\Users\\Surbhi_Modi\\Downloads\\IEDriverServer_x64_3.14.0\\IEDriverServer.exe");
             DesiredCapabilities capabilities=new DesiredCapabilities();
             capabilities.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, "accept");
             capabilities.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
@@ -34,7 +43,7 @@ public class BrowserUtility {
             return driver;
         } else if(browserName.equals("Firefox"))
         {
-            System.setProperty("webdriver.gecko.driver","C:\\Users\\Surbhi_Modi\\Downloads\\geckodriver-v0.24.0-win64\\geckodriver.exe");
+            System.setProperty("webdriver.gecko.driver",System.getProperty("user.dir")+ProjectConstant.FIREFOX_DRIVER);
             driver=new FirefoxDriver();
             driver.manage().window().maximize();
             driver.get(url);

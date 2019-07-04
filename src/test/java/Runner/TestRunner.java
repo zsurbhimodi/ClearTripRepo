@@ -1,16 +1,5 @@
 package Runner;
 
-
-
-
-
-
-
-
-
-
-
-
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
@@ -26,7 +15,7 @@ import cucumber.api.testng.*;
 
 		,plugin= { "pretty",
                 "html:target/site/cucumber-pretty",
-        "json:target/cucumber.json" },
+        "json:target/cucumber.json" ,"rerun:rerun/failed_scenarios.txt"},
         monochrome = true)
 public class TestRunner {
     private TestNGCucumberRunner testNGCucumberRunner;
@@ -42,7 +31,7 @@ public class TestRunner {
         testNGCucumberRunner.runScenario(eventwrapper.getPickleEvent());
     }
 
-    @DataProvider//(parallel=true)
+    @DataProvider(parallel=true)
     public Object[][] features() {
         // return testNGCucumberRunner.provideFeatures();
         return testNGCucumberRunner.provideScenarios();
