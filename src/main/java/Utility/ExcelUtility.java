@@ -23,23 +23,16 @@ public class ExcelUtility {
         Fillo fillo=new Fillo();
         Connection conn=null;
         Recordset recordset=null;
-        try
-        {
-
+        try {
             conn=fillo.getConnection(System.getProperty("user.dir")+testDataFile);
             recordset=conn.executeQuery(query);
-
-            while(recordset.next())
-            {
-                for(String field:recordset.getFieldNames())
-                {
+            while(recordset.next()) {
+                for(String field:recordset.getFieldNames()) {
                     TestDataInMap.put(field, recordset.getField(field));
                 }
             }
-
         }
-        catch(FilloException e)
-        {
+        catch(FilloException e) {
             e.printStackTrace();
             throw new Exception("Test data cannot find . . .");
         }

@@ -1,11 +1,15 @@
 package StepDefinations;
 
+import TestBase.TestBaseClass;
 import Utility.BrowserUtility;
 import Utility.ExcelUtility;
 import Utility.PropertiesFileReader;
+import cucumber.api.java.After;
+import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import pageobject.HomePage;
@@ -13,43 +17,46 @@ import pageobject.HomePage;
 import java.util.Map;
 import java.util.Properties;
 
-public class Step {
+public class Step extends  TestBaseClass {
 
-    PropertiesFileReader obj = new PropertiesFileReader();
-    private WebDriver driver;
-    HomePage homepage;
+
+    public WebDriver driver;
+    public HomePage homepage=null;
+    public Properties properties =null;
+    Logger log = Logger.getLogger(Step.class);
+
+    @Before
+    public void setUp() throws Throwable {
+        properties = PropertiesFileReader.getProperty();
+        driver = BrowserUtility.OpenBrowser(driver, properties.getProperty("browser.name"), properties.getProperty("browser.baseURL"));
+        homepage=new HomePage(driver);
+    }
+    @After
+    public void teardown(){
+        driver.quit();
+    }
 
     @Given("^User is on Home Page$")
     public void user_is_on_Home_Page() throws Throwable {
-        Properties properties = obj.getProperty();
-        driver = BrowserUtility.OpenBrowser(driver, properties.getProperty("browser.name"), properties.getProperty("browser.baseURL"));
+       log.info("Opened URL successfully");
+       Assert.assertEquals(driver.getCurrentUrl(),properties.getProperty("browser.baseURL"));
+
     }
-
-
     @When("User select {string} trip and enter the required details and click on search")
     public void user_select_trip_and_enter_the_required_details_and_click_on_search(String string) throws Throwable {
-        Properties properties = obj.getProperty();
+
         String filePath = properties.getProperty("testdatafilepath");
         Map<String, String> TestDataInMap = ExcelUtility.getTestDataInMap(filePath, properties.getProperty("sheetname"), string);
-        homepage = new HomePage(driver);
-        homepage.fill_Tripdetails(TestDataInMap, string);
-
-
+        System.out.println(string.equals("OneWay"));
+        homepage.fillTripDetails(TestDataInMap, string);
     }
-
     @Then("Message displayed Login Successfully")
     public void message_displayed_Login_Successfully() throws Throwable {
-        Properties properties = obj.getProperty();
-        System.out.println("*************************");
-        System.out.println(properties.getProperty("pageTitle"));
-        System.out.println("*************************");
-        System.out.println("*************************");
-        System.out.println(driver.getTitle());
-        System.out.println("*************************");
+      log.info("Verified the pa");
         Assert.assertTrue(properties.getProperty("pageTitle").equalsIgnoreCase(driver.getTitle()));
-        driver.quit();
-
     }
+
+
 
 
 }
