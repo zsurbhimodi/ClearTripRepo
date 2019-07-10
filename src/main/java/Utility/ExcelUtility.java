@@ -16,9 +16,7 @@ public class ExcelUtility {
     {
         Map<String,String> TestDataInMap=new TreeMap<String,String>();
         String query=null;
-
-
-        query=String.format("SELECT * FROM ClearTripData WHERE TripType='%s'",
+       query=String.format("SELECT * FROM ClearTripData WHERE TripType='%s'",
                 TripType);
         Fillo fillo=new Fillo();
         Connection conn=null;

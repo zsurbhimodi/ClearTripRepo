@@ -17,7 +17,6 @@ public class BrowserUtility {
             driver=new ChromeDriver();
             driver.manage().window().maximize();
             driver.get(url);
-         //   Thread.sleep(5000);
             return driver;
         }else
         if(browserName.equals("IE")) {

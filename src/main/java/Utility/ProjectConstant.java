@@ -1,7 +1,6 @@
 package Utility;
 
 public class ProjectConstant {
-
     public static final String CHROME_DRIVER="\\src\\test\\resources\\drivers\\chromedriver.exe";
     public static final String IE_DRIVER="\\src\\test\\resources\\drivers\\IEDriverServer.exe";
     public static final String FIREFOX_DRIVER="\\src\\test\\resources\\drivers\\geckodriver.exe";
