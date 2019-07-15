@@ -1,6 +1,6 @@
 package pageobject;
 
-import Utility.PropertiesFileReader;
+import TestBase.TestBaseClass;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -9,15 +9,11 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 import java.util.Map;
-import java.util.Properties;
 import java.util.concurrent.TimeUnit;
+public class HomePage extends TestBaseClass {
 
-public class HomePage {
-
-    WebDriver driver;
-    PropertiesFileReader propertiesFileReader = new PropertiesFileReader();
-    Properties properties = propertiesFileReader.getProperty();
     Logger log = Logger.getLogger(HomePage.class);
+
     public HomePage(WebDriver driver) {
         log.info("Driver is initialized in Homepage");
         this.driver = driver;
@@ -44,15 +40,18 @@ public class HomePage {
             childrensDropdown.selectByVisibleText(visibleTextToBeSelected);
         }
     }
+
     private void clickonOnTripRadioButton(String radio) {
         if (radio.equals(properties.getProperty("RoundTrip"))) {
             clickOnRoundTrip();
-        } else if (radio.equals( properties.getProperty("Multicity")))
+        } else if (radio.equals(properties.getProperty("Multicity")))
             multicity.click();
     }
+
     private void clickOnRoundTrip() {
         roundTrip.click();
     }
+
     public void fillTripDetails(Map<String, String> map, String tripSelection) throws InterruptedException {
         clickonOnTripRadioButton(tripSelection);
         selectFRomAndTo(map, tripSelection);
